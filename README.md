@@ -109,13 +109,22 @@ options:
 
 - - - -
 
+#### Troubleshooting:
+
+* a secure (TLS or SSL) connection to the remote SMTP server
+  - [`nodemailer` documentation](https://github.com/nodemailer/nodemailer#i-get-tls-errors) says that:
+    * the `--remote-secure` option should only be used with `--remote-port 465`.<br>
+      for all other port numbers, the connection will upgrade to use TLS if the remote server supports it.
+
+- - - -
+
 #### Real-World Example for _Yahoo Mail_:
 
 * [documentation](https://help.yahoo.com/kb/SLN4075.html) for connecting to remote SMTP server:
   |          |                           |
   |----------|---------------------------|
   | hostname | smtp.mail.yahoo.com       |
-  | port     | 587                       |
+  | port     | 465 (SSL) or 587 (SSL)    |
   | secure   | true                      |
   | username | me@yahoo.com              |
   | password | my-generated-app-password |
@@ -126,7 +135,7 @@ options:
     my_email='me@yahoo.com'
     my_password='0123456789abcdef'
 
-    email-relay -h "smtp.mail.yahoo.com" -rp "587" -s -u "$my_email" -p "$my_password" -f "$my_email"
+    email-relay -h "smtp.mail.yahoo.com" -rp "465" -s -u "$my_email" -p "$my_password" -f "$my_email"
   ```
 
 - - - -
@@ -134,19 +143,19 @@ options:
 #### Real-World Example for _GMX Mail_:
 
 * [documentation](https://support.gmx.com/pop-imap/imap/server.html) for connecting to remote SMTP server:
-  |          |                           |
-  |----------|---------------------------|
-  | hostname | mail.gmx.com              |
-  | port     | 587                       |
-  | secure   | true                      |
-  | username | me@gmx.com                |
-  | password | my-website-login-password |
+  |          |                                                  |
+  |----------|--------------------------------------------------|
+  | hostname | mail.gmx.com                                     |
+  | port     | 465 (SSL or TLS) or 587 (STARTTLS or encryption) |
+  | secure   | false or true                                    |
+  | username | me@gmx.com                                       |
+  | password | my-website-login-password                        |
 * &lt;options&gt;:
   ```bash
     my_email='me@gmx.com'
     my_password='my-website-login-password'
 
-    email-relay -h "mail.gmx.com" -rp "587" -s -u "$my_email" -p "$my_password" -f "$my_email"
+    email-relay -h "mail.gmx.com" -rp "465" -s -u "$my_email" -p "$my_password" -f "$my_email"
   ```
 
 - - - -
@@ -157,7 +166,7 @@ options:
   |          |                           |
   |----------|---------------------------|
   | hostname | smtp.zoho.com             |
-  | port     | 587                       |
+  | port     | 465 (SSL) or 587 (TLS)    |
   | secure   | true                      |
   | username | me@zohomail.com           |
   | password | my-website-login-password |
@@ -166,8 +175,50 @@ options:
     my_email='me@zohomail.com'
     my_password='my-website-login-password'
 
-    email-relay -h "smtp.zoho.com" -rp "587" -s -u "$my_email" -p "$my_password" -f "$my_email"
+    email-relay -h "smtp.zoho.com" -rp "465" -s -u "$my_email" -p "$my_password" -f "$my_email"
   ```
+
+- - - -
+
+#### Etc:
+
+The following command-line SMTP clients are worthy of a mention.<br>
+They provide an easy way to send messages to a running instance of `email-relay`.
+
+1. [`blat`](https://sourceforge.net/projects/blat/)
+   - platforms: Windows
+   - example of usage:
+     ```bash
+       rem :: a value for the "from" sender is required,
+       rem :: but "email-relay" is configured to override this value.
+       set email_from=me@example.com
+
+       set email_to=me@gmail.com
+       set subject=Test: blat
+       set body=Hello, SMTPd!
+       set smtpd_host=localhost
+       set smtpd_port=25
+
+       blat.exe -f "%email_from%" -to "%email_to%" -subject "%subject%" -body "%body%" -server "%smtpd_host%:%smtpd_port%"
+     ```
+   - tested with: [v3.22.4 for Win64](https://sourceforge.net/projects/blat/files/Blat%20Full%20Version/64%20bit%20versions/blat3224_64.full.zip/download)
+2. [`mailsend-go`](https://github.com/muquit/mailsend-go)
+   - platforms: Windows, Linux, MacOS, Raspberry pi
+   - example of usage:
+     ```bash
+       rem :: a value for the "from" sender is required,
+       rem :: but "email-relay" is configured to override this value.
+       set email_from=me@example.com
+
+       set email_to=me@gmail.com
+       set subject=Test: mailsend-go
+       set body=Hello, SMTPd!
+       set smtpd_host=localhost
+       set smtpd_port=25
+
+       mailsend-go.exe -f "%email_from%" -t "%email_to%" -sub "%subject%" body -msg "%body%" -smtp "%smtpd_host%" -port "%smtpd_port%"
+     ```
+   - tested with: [v1.0.10 for Win64](https://github.com/muquit/mailsend-go/releases/download/v1.0.10/mailsend-go_1.0.10_windows-64bit.zip)
 
 - - - -
 
