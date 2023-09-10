@@ -1,0 +1,35 @@
+{
+  "name": "@warren-bank/email-relay",
+  "version": "1.0.0",
+  "main": "lib/process_cli.js",
+  "description": "SMTP proxy server with middleware capability.",
+  "license": "GPL-2.0",
+  "bin": {
+    "email-relay": "bin/email-relay.js"
+  },
+  "scripts": {
+    "start":    "node bin/email-relay.js",
+    "tests:01": "node tests/01-send-email-through-relay.js"
+  },
+  "dependencies": {
+    "@warren-bank/node-process-argv": "^1.1.0",
+    "mailparser": "3.6.5",
+    "nodemailer": "6.9.4",
+    "smtp-server": "3.13.0"
+  },
+  "author": {
+    "name": "Warren R. Bank",
+    "email": "warren.r.bank@gmail.com",
+    "url": "https://github.com/warren-bank"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/warren-bank/node-email-relay"
+  },
+  "keywords": [
+    "email",
+    "SMTP",
+    "relay",
+    "proxy"
+  ]
+}

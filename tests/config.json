@@ -1,0 +1,11 @@
+{
+  "smtpd": {
+    "local-port": 25
+  },
+  "message": {
+    "from":    "me@example.com",
+    "to":      "me@example.com",
+    "subject": "Test Email Message",
+    "text":    "This is only a test"
+  }
+}
