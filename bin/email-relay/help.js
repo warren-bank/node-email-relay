@@ -63,6 +63,30 @@ options:
     of all messages received by the local SMTP server,
     before they are forwarded to the remote SMTP server.
     [Optional. Can be used more than once.]
+
+"-LTT1"
+"--legacy-tls-tweak-01"
+    Boolean flag to enable the addition of a configuration tweak
+    that may be required to support a secure connection to the remote SMTP server
+    when either the local client (version of Node) or remote server only supports legacy protocols.
+    This configuration tweak is:
+      options.tls.ciphers = 'SSLv3'
+
+"-LTT2"
+"--legacy-tls-tweak-02"
+    Boolean flag to enable the addition of a configuration tweak
+    that may be required to support a secure connection to the remote SMTP server
+    when either the local client (version of Node) or remote server only supports legacy protocols.
+    This configuration tweak is:
+      options.tls.minVersion = 'TLSv1'
+
+"-LTT3"
+"--legacy-tls-tweak-03"
+    Boolean flag to enable the addition of a configuration tweak
+    that may be required to support a secure connection to the remote SMTP server
+    when either the local client (version of Node) or remote server only supports legacy protocols.
+    This configuration tweak is:
+      options.tls.rejectUnauthorized = false
 `
 
 module.exports = help

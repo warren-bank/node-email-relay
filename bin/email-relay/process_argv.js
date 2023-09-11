@@ -14,7 +14,11 @@ const argv_flags = {
   "--remote-password":        {},
 
   "--send-email-from":        {},
-  "--middleware":             {file: "module", many: true}
+  "--middleware":             {file: "module", many: true},
+
+  "--legacy-tls-tweak-01":    {bool:  true},
+  "--legacy-tls-tweak-02":    {bool:  true},
+  "--legacy-tls-tweak-03":    {bool:  true}
 }
 
 const argv_flag_aliases = {
@@ -28,7 +32,10 @@ const argv_flag_aliases = {
   "--remote-username":        ["-u"],
   "--remote-password":        ["-p"],
   "--send-email-from":        ["-f"],
-  "--middleware":             ["-m"]
+  "--middleware":             ["-m"],
+  "--legacy-tls-tweak-01":    ["-LTT1"],
+  "--legacy-tls-tweak-02":    ["-LTT2"],
+  "--legacy-tls-tweak-03":    ["-LTT3"]
 }
 
 let argv_vals = {}
@@ -59,6 +66,12 @@ if (!argv_vals["--local-port"]) {
 
 if (!argv_vals["--remote-port"]) {
   argv_vals["--remote-port"] = 25
+}
+
+if (argv_vals["--debug"]) {
+  if (!argv_vals["--remote-host"]) {
+    argv_vals["--remote-host"] = 'smtp.example.com'
+  }
 }
 
 argv_vals["--remote-secure"] = !!argv_vals["--remote-secure"]

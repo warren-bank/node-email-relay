@@ -73,6 +73,30 @@ options:
     of all messages received by the local SMTP server,
     before they are forwarded to the remote SMTP server.
     [Optional. Can be used more than once.]
+
+"-LTT1"
+"--legacy-tls-tweak-01"
+    Boolean flag to enable the addition of a configuration tweak
+    that may be required to support a secure connection to the remote SMTP server
+    when either the local client (version of Node) or remote server only supports legacy protocols.
+    This configuration tweak is:
+      options.tls.ciphers = 'SSLv3'
+
+"-LTT2"
+"--legacy-tls-tweak-02"
+    Boolean flag to enable the addition of a configuration tweak
+    that may be required to support a secure connection to the remote SMTP server
+    when either the local client (version of Node) or remote server only supports legacy protocols.
+    This configuration tweak is:
+      options.tls.minVersion = 'TLSv1'
+
+"-LTT3"
+"--legacy-tls-tweak-03"
+    Boolean flag to enable the addition of a configuration tweak
+    that may be required to support a secure connection to the remote SMTP server
+    when either the local client (version of Node) or remote server only supports legacy protocols.
+    This configuration tweak is:
+      options.tls.rejectUnauthorized = false
 ```
 
 #### Middleware:
@@ -96,7 +120,7 @@ options:
   ```
 * start server in debug mode and pipe output to a log file:
   ```bash
-    npm start -- -h "smtp.example.com" -D >debug.log 2>&1
+    npm start -- -D >debug.log 2>&1
   ```
 * test server by sending a message to it:
   ```bash
@@ -115,6 +139,16 @@ options:
   - [`nodemailer` documentation](https://github.com/nodemailer/nodemailer#i-get-tls-errors) says that:
     * the `--remote-secure` option should only be used with `--remote-port 465`.<br>
       for all other port numbers, the connection will upgrade to use TLS if the remote server supports it.
+    * the `-LTT3` option is applicable when using an older version of _Node_,<br>
+      that does not fully support the certificate chain of the newest _Let's Encrypt_ certificates.
+    * the `-LTT2` option is applicable when connecting to a remote SMTP server that only supports TLS v1.1 or lower.<br>
+      relevant _Node_ documentation:
+      - [`minVersion` tls option](https://nodejs.org/dist/latest/docs/api/tls.html#tlscreatesecurecontextoptions)
+      - [`tls.DEFAULT_MIN_VERSION`](https://nodejs.org/dist/latest/docs/api/tls.html#tlsdefault_min_version) in recent versions of _Node_ is `TLSv1.2`
+  - [`nodemailer` issue 165](https://github.com/nodemailer/nodemailer/issues/165#issuecomment-20733858) says that:
+    * the `-LTT1` option is applicable when connecting to a remote SMTP server that only supports SSL v3.<br>
+      relevant _Node_ documentation:
+      - [`ciphers` tls option](https://nodejs.org/dist/latest/docs/api/tls.html#tlscreatesecurecontextoptions)
 
 - - - -
 

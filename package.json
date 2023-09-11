@@ -1,6 +1,6 @@
 {
   "name": "@warren-bank/email-relay",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "lib/process_cli.js",
   "description": "SMTP proxy server with middleware capability.",
   "license": "GPL-2.0",
