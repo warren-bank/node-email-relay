@@ -137,22 +137,22 @@ options:
 
 * a secure (TLS or SSL) connection to the remote SMTP server
   - [`nodemailer` documentation](https://github.com/nodemailer/nodemailer#i-get-tls-errors) says that:
-    * the `--remote-secure` option should only be used with `--remote-port 465`.<br>
-      for all other port numbers, the connection will upgrade to use TLS if the remote server supports it.
-    * the `-LTT3` option is applicable when using an older version of _Node_,<br>
+    * The `--remote-secure` option should only be used with `--remote-port 465`.<br>
+      For all other port numbers, the connection will upgrade to use TLS if the remote server supports it.
+    * The `-LTT3` option is applicable when using an older version of _Node_,<br>
       that does not fully support the certificate chain of the newest _Let's Encrypt_ certificates.
-    * the `-LTT2` option is applicable when connecting to a remote SMTP server that only supports TLS v1.1 or lower.<br>
-      relevant _Node_ documentation:
+    * The `-LTT2` option is applicable when connecting to a remote SMTP server<br>that only supports TLS v1.1 or lower.<br>
+      The relevant _Node_ documentation:
       - [`minVersion` tls option](https://nodejs.org/dist/latest/docs/api/tls.html#tlscreatesecurecontextoptions)
       - [`tls.DEFAULT_MIN_VERSION`](https://nodejs.org/dist/latest/docs/api/tls.html#tlsdefault_min_version) in recent versions of _Node_ is `TLSv1.2`
   - [`nodemailer` issue 165](https://github.com/nodemailer/nodemailer/issues/165#issuecomment-20733858) says that:
-    * the `-LTT1` option is applicable when connecting to a remote SMTP server that only supports SSL v3.<br>
-      relevant _Node_ documentation:
+    * The `-LTT1` option is applicable when connecting to a remote SMTP server<br>that only supports SSL v3.<br>
+      The relevant _Node_ documentation:
       - [`ciphers` tls option](https://nodejs.org/dist/latest/docs/api/tls.html#tlscreatesecurecontextoptions)
 
 - - - -
 
-#### Real-World Example for _Yahoo Mail_:
+#### Real-World Example for [_Yahoo Mail_](https://mail.yahoo.com/):
 
 * [documentation](https://help.yahoo.com/kb/SLN4075.html) for connecting to remote SMTP server:
   |          |                           |
@@ -174,14 +174,14 @@ options:
 
 - - - -
 
-#### Real-World Example for _GMX Mail_:
+#### Real-World Example for [_GMX Mail_](https://www.gmx.com/mail/):
 
 * [documentation](https://support.gmx.com/pop-imap/imap/server.html) for connecting to remote SMTP server:
   |          |                                                  |
   |----------|--------------------------------------------------|
   | hostname | mail.gmx.com                                     |
   | port     | 465 (SSL or TLS) or 587 (STARTTLS or encryption) |
-  | secure   | false or true                                    |
+  | secure   | true                                             |
   | username | me@gmx.com                                       |
   | password | my-website-login-password                        |
 * &lt;options&gt;:
@@ -194,7 +194,7 @@ options:
 
 - - - -
 
-#### Real-World Example for _Zoho Mail_:
+#### Real-World Example for [_Zoho Mail_](https://www.zoho.com/mail/):
 
 * [documentation](https://www.zoho.com/mail/help/zoho-smtp.html) for connecting to remote SMTP server:
   |          |                           |
